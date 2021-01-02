@@ -18,6 +18,7 @@ public class ArticleController
     @PostMapping("/post")
     public String post(@RequestBody ArticleDto articleDto)
     {
-        return articleService.addArticle(articleDto);
+        //return articleService.addArticle(articleDto);
+        return "post";
     }
 }

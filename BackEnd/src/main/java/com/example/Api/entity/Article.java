@@ -6,8 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "article")
-public class Article
-{
+public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +18,19 @@ public class Article
 
     @Column(name = "article")
     private String articleBody;
-/*
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
-*/
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
@@ -47,12 +54,5 @@ public class Article
     public void setArticleBody(String articleBody) {
         this.articleBody = articleBody;
     }
-/*
- public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }*/
 }

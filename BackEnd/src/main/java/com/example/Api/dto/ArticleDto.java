@@ -2,13 +2,11 @@ package com.example.Api.dto;
 
 public class ArticleDto
 {
+    private String email;
+    private String password;
     private String title;
     private String article;
-    public ArticleDto(String title, String article)
-    {
-        this.title = title;
-        this.article = article;
-    }
+    //private UserDto userDto;
 
     public String getTitle() {
         return title;
@@ -26,4 +24,27 @@ public class ArticleDto
         this.article = article;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /*  public UserDto getUserDto() {
+        return userDto;
+    }
+
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
+    }*/
 }

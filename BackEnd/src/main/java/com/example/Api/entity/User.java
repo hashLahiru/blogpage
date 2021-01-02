@@ -28,17 +28,29 @@ public class User
     @Column(name = "password")
     private String password;
 
-  /*  @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Article article;
-    //private Set<Article> articles =new HashSet<>();
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    //private Article article;
+    private Set<Article> articles =new HashSet<>();
 
+   public Set<Article> getArticles() {
+        return articles;
+    }
 
-    public Article getArticle() {
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
+
+        for (Article a:articles)
+        {
+            a.setUser(this);
+        }
+    }
+
+   /*public Article getArticle() {
         return article;
     }
 
     public void setArticle(Article article) {
-        this.article.setUser(this);
+        this.article = article;
     }*/
 
     public Long getId() {

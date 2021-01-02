@@ -6,4 +6,5 @@ import com.example.Api.entity.User;
 public interface UserService
 {
     User login(String email, String password);
+    User findId(String email, String password);
 }

@@ -20,4 +20,10 @@ public class UserServiceImpl implements UserService
         User user=userRepository.findByEmailAndPassword(email, password);
         return user;
     }
+
+    @Override
+    public User findId(String email, String password) {
+        User user=userRepository.findByEmailAndPassword(email, password);
+        return user;
+    }
 }
