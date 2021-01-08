@@ -6,7 +6,7 @@ public class ArticleDto
     private String password;
     private String title;
     private String article;
-    //private UserDto userDto;
+
 
     public String getTitle() {
         return title;
@@ -40,11 +40,4 @@ public class ArticleDto
         this.password = password;
     }
 
-    /*  public UserDto getUserDto() {
-        return userDto;
-    }
-
-    public void setUserDto(UserDto userDto) {
-        this.userDto = userDto;
-    }*/
 }

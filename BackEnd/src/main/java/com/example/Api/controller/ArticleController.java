@@ -13,12 +13,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/article")
 public class ArticleController
 {
-    @Autowired
-    ArticleService articleService;
-    @PostMapping("/post")
-    public String post(@RequestBody ArticleDto articleDto)
-    {
-        //return articleService.addArticle(articleDto);
-        return "post";
-    }
+
 }

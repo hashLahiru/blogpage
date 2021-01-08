@@ -29,9 +29,10 @@ public class ArticleServiceImpl implements ArticleService
             Article a=new Article();
             a.setArticleTitle(articleTitle);
             a.setArticleBody(articleBody);
+
             a.setUser(user);
             articleRepository.save(a);
-return "sucesss";
+            return "Posted";
     }
 
 }

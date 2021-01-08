@@ -1,7 +1,5 @@
 package com.example.Api.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 
 @Entity

@@ -9,5 +9,6 @@ import java.util.Set;
 
 public interface ArticleService
 {
+
     String addArticle(User user, String articleTitle, String articleBody);
 }

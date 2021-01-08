@@ -29,10 +29,9 @@ public class User
     private String password;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    //private Article article;
     private Set<Article> articles =new HashSet<>();
 
-   public Set<Article> getArticles() {
+    public Set<Article> getArticles() {
         return articles;
     }
 
@@ -44,14 +43,6 @@ public class User
             a.setUser(this);
         }
     }
-
-   /*public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
-    }*/
 
     public Long getId() {
         return id;
