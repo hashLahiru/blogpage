@@ -31,6 +31,10 @@ public class User
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Article> articles =new HashSet<>();
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Comment> comments =new HashSet<>();
+
+
     public Set<Article> getArticles() {
         return articles;
     }
@@ -41,6 +45,18 @@ public class User
         for (Article a:articles)
         {
             a.setUser(this);
+        }
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+        for (Comment c:comments)
+        {
+            c.setUser(this);
         }
     }
 

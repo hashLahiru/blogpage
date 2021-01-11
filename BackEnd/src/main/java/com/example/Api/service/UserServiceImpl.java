@@ -1,11 +1,12 @@
 package com.example.Api.service;
 
-import com.example.Api.dto.UserDto;
 import com.example.Api.entity.User;
 import com.example.Api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,12 +22,14 @@ public class UserServiceImpl implements UserService
         return user;
     }
 
-    @Override
-    public User findId(String email, String password)
+
+
+    public Optional<User> findUser(Long userId)
     {
 
-        User user=userRepository.findByEmailAndPassword(email, password);
+        Optional<User> user= userRepository.findById(userId);
         return user;
 
     }
+
 }
