@@ -7,7 +7,9 @@ import com.example.Api.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -26,11 +28,11 @@ public class ArticleServiceImpl implements ArticleService
     private Object Iterable;
 
     @Override
-    public String addArticle(User user, String articleTitle, String articleBody)
-    {
+    public String addArticle(User user, String title,String description, MultipartFile multipartFile) throws IOException {
             Article a=new Article();
-            a.setArticleTitle(articleTitle);
-            a.setArticleBody(articleBody);
+            a.setArticleTitle(title);
+            a.setDescription(description);
+            a.setImage(multipartFile.getBytes());
             a.setUser(user);
             Date date=new Date();
             a.setLoadDate(date);

@@ -19,8 +19,12 @@ public class Article {
     @Column(name = "articleTitle")
     private String articleTitle;
 
-    @Column(name = "article")
-    private String articleBody;
+    @Column(name = "description")
+    private String description;
+
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
 
     @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -78,12 +82,19 @@ public class Article {
         this.articleTitle = articleTitle;
     }
 
-    public String getArticleBody() {
-        return articleBody;
+    public String getDescription() {
+        return description;
     }
 
-    public void setArticleBody(String articleBody) {
-        this.articleBody = articleBody;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }
