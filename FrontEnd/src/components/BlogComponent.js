@@ -1,11 +1,35 @@
-import React, {Component}  from 'react';
+import React from 'react';
 import {useState} from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
 import { Form } from 'react-bootstrap';
 import Modal from 'react-modal';
+import ArticleService from '../Services/ArticleService';
+
 
 
 function Blog(){
+    const [articleDetails, setarticleDetails] = useState({articleTitle:'',article:''});
+    
+    // setuserDetails[]
+    // saveArticle=(e)=>{
+    //     e.preventDefault();
+    //     let employee={firstname:this.state.firstname,lastname:this.state.lastname,emailId:this.state.emailId}
+    //     console.log('employee=>'+JSON.stringify(employee));
+
+    //     EmployeeService.createEmployee(employee).then(res=>{
+    //         this.props.history.push('/employees');
+    //     })
+    // }
+
+    function doSubmit(){
+        // console.log('article=>'+JSON.stringify(articleDetails.article));
+        ArticleService.createArticle(articleDetails).then(res=>{
+                this.articleDetails.push('/article');
+        })
+        
+    }
+    
+    
         const[modalIsOpen,setModalIsOpen]=useState(false)
         return (
             <div className="container">
@@ -114,11 +138,11 @@ function Blog(){
                                     <Form.Group >
                                     <Form.Group controlId="formGridAddress1">
                                     <Form.Label>Topic</Form.Label>
-                                    <Form.Control placeholder="Add topic" />
+                                    <Form.Control placeholder="Add topic" name="articleTitle" value={articleDetails.articleTitle} onChange={e=> setarticleDetails({articleTitle:e.target.value})}/>
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.ControlTextarea1">
                                     <Form.Label>Content</Form.Label>
-                                    <Form.Control placeholder="Write your Post" as="textarea" rows={3} />
+                                    <Form.Control placeholder="Write your Post" as="textarea" name="article" value={articleDetails.article} onChange={e=> setarticleDetails({article:e.target.value})} rows={3} />
                                     </Form.Group>
                                     </Form.Group>
                                     <Form>
@@ -126,7 +150,7 @@ function Blog(){
                                     <Form.File id="exampleFormControlFile1" label="Upload Image" />
                                     </Form.Group>
                                     </Form>
-                                    <Button variant="primary" type="submit">
+                                    <Button variant="primary" type="submit" onClick={doSubmit}>
                                     Submit
                                     </Button>
                                     </Form>
