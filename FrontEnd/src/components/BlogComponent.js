@@ -4,38 +4,28 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} fro
 import { Form } from 'react-bootstrap';
 import Modal from 'react-modal';
 import ArticleService from '../Services/ArticleService';
+import {useForm} from "react-hook-form";
 
 
 function Blog(){
     const[modalIsOpen,setModalIsOpen]=useState(false)
-    const [articleDetails, setarticleDetails] = useState({title:'',description:''});
+    // const [articleDetails, setarticleDetails] = useState({title:'',description:''});
 
-    // articleDetails.changeTitleHandler=articleDetails.changeTitleHandler.bind(this);
-    // articleDetails.changeDescriptionHandler=articleDetails.changeDescriptionHandler.bind(this);
-
-    // changeTitleHandler=(event)=>{
-    //     setarticleDetails({title:event.target.value});
-    // }
-    // changeDescriptionHandler=(event)=>{
-    //     setarticleDetails({description:event.target.value});
-    // }
-
-    function doSubmit(){
-
-        let article={
-            title:articleDetails.title,
-            description:articleDetails.description
-        }
-        
-        
-        
-        console.log('article=>'+JSON.stringify(article));
-        ArticleService.postArticle(article).then(res=>{
-                     console.log(res.data);
-                    // this.articleDetails.push('/blog');
-         })
+    const{register, handleSubmit}=useForm({
+        mode:"onBlur"
     }
+    );
 
+    const onSubmit=(data)=>{
+        console.log(data);
+        setModalIsOpen(false);
+        ArticleService.postArticle(data).then(res=>{
+            // console.log(res.data);
+          this.history.push('/blog');
+})
+
+    }
+    
         return (
             <div className="container">
                 <div>
@@ -88,6 +78,7 @@ function Blog(){
                                 <div>
                                 <button onClick={()=>setModalIsOpen(true)}>Write Post</button>
                                     <Modal isOpen={modalIsOpen} onRequestClose={()=>setModalIsOpen(false)} 
+                                            ariaHideApp={false}
                                             style={
                                                     {
                                              overlay:{
@@ -98,33 +89,31 @@ function Blog(){
                                                 }}>
         
                                     <h2>Write a Blog Post</h2>
-                                    <Form>
+                                    <Form onSubmit={handleSubmit(onSubmit)}>
 
                                     <Form.Group >
                                     <Form.Group controlId="formGridAddress1">
 
                                     <Form.Label>Topic</Form.Label>
 
-                                    <Form.Control placeholder="Add topic" as="textarea" name="title"
-                                     value={articleDetails.title} 
-                                     onChange={e=> setarticleDetails({...articleDetails,title:e.target.value})} rows={3}/>   
+                                    <Form.Control placeholder="Add topic" as="textarea" name="title"                                   
+                                    rows={3} ref={register}/>   
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.ControlTextarea1">
 
                                     <Form.Label>Content</Form.Label>
                                     
                                     <Form.Control placeholder="Write your Post" as="textarea" name="description"
-                                     value={articleDetails.description}
-                                      onChange={e=> setarticleDetails({...articleDetails,description:e.target.value})} rows={3} /> 
+                                    rows={3} ref={register}/> 
                                     </Form.Group>
                                     </Form.Group>
 
                                     <Form>
                                     <Form.Group>
-                                    <Form.File id="exampleFormControlFile1" label="Upload Image"/>
+                                    <Form.File id="exampleFormControlFile1" label="Upload Image" name="file" ref={register}/>
                                     </Form.Group>
                                     </Form>
-                                    <Button variant="primary" type="submit" onClick={doSubmit}>
+                                    <Button variant="primary" type="submit" >
                                     Submit
                                     </Button>
                                     </Form>

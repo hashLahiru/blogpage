@@ -1,9 +1,6 @@
 .App {
   text-align: center;
-<<<<<<< HEAD
-=======
   background: #282c34;
->>>>>>> main
 }
 
 .App-logo {
@@ -28,8 +25,6 @@
   color: white;
 }
 
-<<<<<<< HEAD
-=======
 .footer {
   background-color: #343a40;
   margin: 0px auto;
@@ -37,7 +32,6 @@
   color: white;
 }
 
->>>>>>> main
 .App-link {
   color: #61dafb;
 }
@@ -50,11 +44,8 @@
     transform: rotate(360deg);
   }
 }
-<<<<<<< HEAD
-=======
 
 .bg-dark {
   background-color: black;
   padding: 20px 20px 20px 20px;
 }
->>>>>>> main
