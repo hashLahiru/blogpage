@@ -4,27 +4,49 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} fro
 import { Form } from 'react-bootstrap';
 import Modal from 'react-modal';
 import ArticleService from '../Services/ArticleService';
+import CommentService from '../Services/CommentService';
 import {useForm} from "react-hook-form";
 
 
 function Blog(){
     const[modalIsOpen,setModalIsOpen]=useState(false)
-    // const [articleDetails, setarticleDetails] = useState({title:'',description:''});
+    const [articleDetails, setarticleDetails] = useState({title:'',description:'',file:''});
+    // const[commentDetails,setcommentDetails]=useState({comment:''});
 
     const{register, handleSubmit}=useForm({
         mode:"onBlur"
     }
     );
 
-    const onSubmit=(data)=>{
-        console.log(data);
+
+    const submitArticle=(data)=>{
         setModalIsOpen(false);
+        console.log(data)
+        
         ArticleService.postArticle(data).then(res=>{
-            // console.log(res.data);
-          this.history.push('/blog');
-})
+             // console.log(res.data);
+              this.history.push('/blog');
+            })
+    
 
     }
+
+    
+    const submitComment=(data)=>{
+        setModalIsOpen(false);
+        console.log(data)
+        
+        CommentService.postComment(data).then(res=>{
+                // console.log(res.data);
+              this.history.push('/blog');
+            })
+    
+
+    }
+
+    
+
+
     
         return (
             <div className="container">
@@ -54,13 +76,15 @@ function Blog(){
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             </CardText>
                         </CardBody>
-                        <Form style={{padding: "20px 20px 20px 20px"}}>
+                        
+
+                        <Form style={{padding: "20px 20px 20px 20px"}} onSubmit={handleSubmit(submitComment)}>
                             <Form.Group controlId="exampleForm.ControlTextarea1">
                             <Form.Label> <b> Post a Comment</b></Form.Label>
-                            <Form.Control as="textarea" rows={3} placeholder="Type a comment" />
+                            <Form.Control as="textarea" rows={3} placeholder="Type a comment" name="comment" ref={register}/>
                             </Form.Group>
-                            <Button variant="primary" type="submit">
-                                Comment
+                            <Button variant="primary" type="submit" >
+                                    Submit
                             </Button>
                         </Form>
                     </Card>
@@ -89,7 +113,7 @@ function Blog(){
                                                 }}>
         
                                     <h2>Write a Blog Post</h2>
-                                    <Form onSubmit={handleSubmit(onSubmit)}>
+                                    <Form onSubmit={handleSubmit(submitArticle)}>
 
                                     <Form.Group >
                                     <Form.Group controlId="formGridAddress1">
@@ -113,7 +137,7 @@ function Blog(){
                                     <Form.File id="exampleFormControlFile1" label="Upload Image" name="file" ref={register}/>
                                     </Form.Group>
                                     </Form>
-                                    <Button variant="primary" type="submit" >
+                                    <Button variant="primary" type="submit">
                                     Submit
                                     </Button>
                                     </Form>
