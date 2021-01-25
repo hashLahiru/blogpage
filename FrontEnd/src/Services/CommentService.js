@@ -1,5 +1,5 @@
 import axios from 'axios';
-const COMMENT_API_BASE_URL="http://localhost:8080/api/comment/post/";
+const COMMENT_API_BASE_URL="http://localhost:8080/api/comment/post/4";
 
 class CommentService{
     getComment(){
