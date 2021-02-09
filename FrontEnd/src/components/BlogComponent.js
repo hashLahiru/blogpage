@@ -3,10 +3,51 @@ import {useState} from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button} from 'reactstrap';
 import { Form } from 'react-bootstrap';
 import Modal from 'react-modal';
+import ArticleService from '../Services/ArticleService';
+import CommentService from '../Services/CommentService';
+import {useForm} from "react-hook-form";
 
 
 function Blog(){
-        const[modalIsOpen,setModalIsOpen]=useState(false)
+    const[modalIsOpen,setModalIsOpen]=useState(false)
+    const [articleDetails, setarticleDetails] = useState({title:'',description:'',file:''});
+    // const[commentDetails,setcommentDetails]=useState({comment:''});
+
+    const{register, handleSubmit}=useForm({
+        mode:"onBlur"
+    }
+    );
+
+
+    const submitArticle=(data)=>{
+        setModalIsOpen(false);
+        console.log(data)
+        
+        ArticleService.postArticle(data).then(res=>{
+             // console.log(res.data);
+              this.history.push('/blog');
+            })
+    
+
+    }
+
+    
+    const submitComment=(data)=>{
+        setModalIsOpen(false);
+        console.log(data)
+        
+        CommentService.postComment(data).then(res=>{
+                // console.log(res.data);
+              this.history.push('/blog');
+            })
+    
+
+    }
+
+    
+
+
+    
         return (
             <div className="container">
                 <div>
@@ -35,13 +76,15 @@ function Blog(){
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             </CardText>
                         </CardBody>
-                        <Form style={{padding: "20px 20px 20px 20px"}}>
+                        
+
+                        <Form style={{padding: "20px 20px 20px 20px"}} onSubmit={handleSubmit(submitComment)}>
                             <Form.Group controlId="exampleForm.ControlTextarea1">
                             <Form.Label> <b> Post a Comment</b></Form.Label>
-                            <Form.Control as="textarea" rows={3} placeholder="Type a comment" />
+                            <Form.Control as="textarea" rows={3} placeholder="Type a comment" name="comment" ref={register}/>
                             </Form.Group>
-                            <Button variant="primary" type="submit">
-                                Comment
+                            <Button variant="primary" type="submit" >
+                                    Submit
                             </Button>
                         </Form>
                     </Card>
@@ -59,6 +102,7 @@ function Blog(){
                                 <div>
                                 <button onClick={()=>setModalIsOpen(true)}>Write Post</button>
                                     <Modal isOpen={modalIsOpen} onRequestClose={()=>setModalIsOpen(false)} 
+                                            ariaHideApp={false}
                                             style={
                                                     {
                                              overlay:{
@@ -69,20 +113,28 @@ function Blog(){
                                                 }}>
         
                                     <h2>Write a Blog Post</h2>
-                                    <Form>
+                                    <Form onSubmit={handleSubmit(submitArticle)}>
+
                                     <Form.Group >
                                     <Form.Group controlId="formGridAddress1">
+
                                     <Form.Label>Topic</Form.Label>
-                                    <Form.Control placeholder="Add topic" />
+
+                                    <Form.Control placeholder="Add topic" as="textarea" name="title"                                   
+                                    rows={3} ref={register}/>   
                                     </Form.Group>
                                     <Form.Group controlId="exampleForm.ControlTextarea1">
+
                                     <Form.Label>Content</Form.Label>
-                                    <Form.Control placeholder="Write your Post" as="textarea" rows={3} />
+                                    
+                                    <Form.Control placeholder="Write your Post" as="textarea" name="description"
+                                    rows={3} ref={register}/> 
                                     </Form.Group>
                                     </Form.Group>
+
                                     <Form>
                                     <Form.Group>
-                                    <Form.File id="exampleFormControlFile1" label="Upload Image" />
+                                    <Form.File id="exampleFormControlFile1" label="Upload Image" name="file" ref={register}/>
                                     </Form.Group>
                                     </Form>
                                     <Button variant="primary" type="submit">
